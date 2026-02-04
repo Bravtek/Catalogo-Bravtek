@@ -1,0 +1,1593 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BRAVTEK | Catálogo Tech</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root{
+      --bg:#05060a;
+      --text:#e9eefc;
+      --muted:#94a3b8;
+      --stroke:rgba(255,255,255,.10);
+
+      --neon:#00d2ff;
+      --neon2:#7c3aed;
+      --acid:#00ff85;
+      --hot:#ff2bd6;
+
+      --shadow: 0 30px 90px rgba(0,0,0,.75);
+      --radius: 18px;
+      --radius2: 26px;
+    }
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(1000px 550px at 10% -10%, rgba(0,210,255,.22), transparent 60%),
+        radial-gradient(900px 550px at 95% 0%, rgba(124,58,237,.22), transparent 55%),
+        radial-gradient(900px 550px at 45% 110%, rgba(0,255,133,.12), transparent 60%),
+        var(--bg);
+      color: var(--text);
+    }
+
+    .topbar{
+      position:sticky; top:0; z-index:999;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      background: rgba(5,6,10,.62);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .topbar-inner{
+      max-width:1200px; margin:0 auto;
+      padding: 14px 16px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    .brand{ display:flex; flex-direction:column; gap:4px; line-height:1; }
+    .brand .logo{
+      font-weight: 950;
+      letter-spacing: 10px;
+      font-size: 1.15rem;
+      text-transform: uppercase;
+      text-shadow: 1px 0 0 rgba(0,210,255,.35), -1px 0 0 rgba(255,43,214,.22);
+    }
+    .brand .sub{
+      font-size:.72rem; color: rgba(0,210,255,.95);
+      letter-spacing: 3px; text-transform: uppercase; font-weight: 850;
+    }
+    .top-actions{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:flex-end; }
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      text-decoration:none;
+      font-weight: 900; font-size: .86rem;
+      transition: .25s;
+      user-select:none;
+      box-shadow: 0 10px 35px rgba(0,0,0,.35);
+      cursor:pointer;
+    }
+    .btn:hover{ border-color: rgba(0,210,255,.45); transform: translateY(-1px); }
+    .btn-primary{
+      border: 1px solid rgba(0,255,133,.35);
+      background: linear-gradient(180deg, rgba(0,255,133,1), rgba(0,210,255,.88));
+      color:#00110a;
+      box-shadow: 0 18px 55px rgba(0,255,133,.18);
+    }
+
+    .container{ max-width:1200px; margin:0 auto; padding: 22px 16px 60px; }
+
+    .hero{
+      border: 1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border-radius: var(--radius2);
+      padding: 20px 18px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(900px 400px at 10% 0%, rgba(0,210,255,.18), transparent 55%),
+        radial-gradient(900px 400px at 90% 15%, rgba(255,43,214,.10), transparent 55%);
+      pointer-events:none;
+    }
+    .hero-inner{ position:relative; display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+    .hero h1{ margin:0; font-size:1.55rem; letter-spacing: -0.6px; font-weight: 950; text-transform: uppercase; }
+    .hero p{ margin: 6px 0 0; color: var(--muted); max-width: 720px; line-height: 1.35rem; font-weight: 600; }
+
+    .nav-cats{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px; }
+
+    .category{ margin-top: 22px; }
+    .cat-head{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin: 18px 4px 10px; }
+    .cat-head h2{
+      margin:0; font-size: 1rem; letter-spacing: 2px; text-transform: uppercase;
+      font-weight: 950; color: rgba(233,238,252,.95);
+    }
+    .cat-head span{ color: var(--muted); font-size: .85rem; font-weight: 700; }
+
+    .grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+
+    .card{
+      display:block;
+      text-decoration:none;
+      color:inherit;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(10,12,18,.55);
+      padding: 14px;
+      overflow:hidden;
+      transition: .28s;
+      box-shadow: 0 22px 70px rgba(0,0,0,.40);
+      position:relative;
+      cursor:pointer;
+    }
+    .card:before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(450px 220px at 10% 0%, rgba(0,210,255,.12), transparent 60%),
+        radial-gradient(450px 220px at 90% 15%, rgba(124,58,237,.10), transparent 60%);
+      opacity:.9; pointer-events:none;
+    }
+    .card:hover{ transform: translateY(-6px); border-color: rgba(0,210,255,.35); }
+
+    .media{
+      position:relative;
+      border-radius: 14px;
+      background: rgba(0,0,0,.35);
+      border: 1px solid rgba(255,255,255,.08);
+      padding: 10px;
+      overflow:hidden;
+    }
+    .media img{
+      width:100%;
+      height: 170px;
+      object-fit: contain;
+      filter: drop-shadow(0 18px 34px rgba(0,0,0,.65));
+    }
+
+    .zap-badge{
+      position:absolute; top:10px; left:10px;
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      text-decoration:none;
+      color:#00110a;
+      font-weight: 950;
+      font-size: .78rem;
+      background: linear-gradient(180deg, rgba(0,255,133,1), rgba(0,210,255,.85));
+      border: 1px solid rgba(0,255,133,.35);
+      box-shadow: 0 16px 45px rgba(0,255,133,.18);
+      z-index:3;
+    }
+    .zap-dot{ width:10px; height:10px; border-radius:999px; background:#00110a; box-shadow: 0 0 0 6px rgba(0,0,0,.10); }
+
+    .card h3{
+      margin: 12px 0 6px;
+      font-size: 1.02rem;
+      letter-spacing: -0.3px;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+    .card p{ margin:0; color: var(--muted); font-size: .84rem; font-weight: 650; line-height: 1.25rem; }
+
+    .view{ display:none; }
+    .view.active{ display:block; }
+
+    .detail{
+      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .detail:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(900px 450px at 15% 0%, rgba(0,210,255,.18), transparent 60%),
+        radial-gradient(900px 450px at 85% 10%, rgba(255,43,214,.10), transparent 60%),
+        radial-gradient(900px 450px at 50% 120%, rgba(0,255,133,.10), transparent 60%);
+      pointer-events:none;
+    }
+    .detail-inner{
+      position:relative;
+      display:grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 18px;
+      padding: 18px;
+    }
+    @media(max-width: 900px){ .detail-inner{ grid-template-columns: 1fr; } }
+
+    .detail-media{
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.35);
+      padding: 14px;
+      position:relative;
+      overflow:hidden;
+    }
+    .detail-media img{
+      width:100%;
+      max-height: 380px;
+      object-fit: contain;
+      filter: drop-shadow(0 22px 42px rgba(0,0,0,.75));
+    }
+
+    .detail-title{
+      margin: 0;
+      font-size: 1.45rem;
+      letter-spacing: -0.5px;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+    .detail-tag{
+      margin: 8px 0 12px;
+      color: rgba(0,210,255,.95);
+      font-weight: 900;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-size: .78rem;
+    }
+
+    .tech{
+      margin-top: 12px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.26);
+    }
+    .tech .item{
+      color: rgba(233,238,252,.88);
+      font-size: .82rem;
+      line-height: 1.15rem;
+      font-weight: 650;
+    }
+    .tech .item b{
+      display:block;
+      color:#fff;
+      font-size: .90rem;
+      margin-bottom: 2px;
+      font-weight: 950;
+    }
+
+    .opt{
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.22);
+    }
+    .opt h4{
+      margin:0 0 10px;
+      font-size: .78rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 950;
+    }
+
+    .chips{ display:flex; flex-wrap:wrap; gap:8px; }
+    .chip{
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      font-weight: 900;
+      font-size: .84rem;
+      cursor:pointer;
+      transition:.2s;
+      user-select:none;
+    }
+    .chip:hover{ border-color: rgba(0,210,255,.45); transform: translateY(-1px); }
+    .chip.active{
+      border-color: rgba(0,210,255,.55);
+      background: rgba(0,210,255,.10);
+      color: rgba(0,210,255,1);
+    }
+
+    .colors{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .dot{
+      width: 34px; height: 34px;
+      border-radius: 999px;
+      border: 2px solid rgba(0,0,0,.85);
+      outline: 1px solid rgba(255,255,255,.18);
+      cursor:pointer;
+      display:inline-block;
+      box-shadow: 0 18px 45px rgba(0,0,0,.35);
+      transition: .2s;
+    }
+    .dot:hover{ transform: translateY(-2px); }
+    .dot.active{ outline: 2px solid rgba(0,210,255,.85); }
+
+    .hint{ margin-top: 10px; color: var(--muted); font-size: .85rem; font-weight: 650; line-height: 1.35rem; }
+
+    .price{
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,.10);
+      font-size: 2rem;
+      font-weight: 950;
+      letter-spacing: -0.6px;
+      text-shadow: 0 0 22px rgba(0,210,255,.12);
+    }
+
+    .buy{ margin-top: 12px; display:flex; gap:10px; flex-wrap:wrap; }
+    .buy a{
+      flex: 1 1 200px;
+      text-align:center;
+      padding: 14px 16px;
+      border-radius: 999px;
+      text-decoration:none;
+      font-weight: 950;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      font-size: .85rem;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      cursor:pointer;
+    }
+    .buy a.primary{
+      border: 1px solid rgba(0,255,133,.35);
+      background: linear-gradient(180deg, rgba(0,255,133,1), rgba(0,210,255,.88));
+      color:#00110a;
+      box-shadow: 0 18px 55px rgba(0,255,133,.18);
+    }
+
+    .float-zap{
+      position: fixed; bottom: 22px; right: 22px;
+      width: 62px; height: 62px; border-radius: 50%;
+      display:flex; align-items:center; justify-content:center;
+      background: linear-gradient(180deg, rgba(0,255,133,1), rgba(0,210,255,.88));
+      border: 1px solid rgba(0,255,133,.35);
+      box-shadow: 0 18px 55px rgba(0,255,133,.18);
+      z-index: 1000;
+      text-decoration:none;
+      color:#00110a;
+    }
+    .float-zap svg{ width:28px; height:28px; }
+
+    footer{
+      text-align:center;
+      padding: 38px 16px;
+      color: rgba(233,238,252,.55);
+      font-weight: 650;
+      border-top: 1px solid rgba(255,255,255,.06);
+      background: rgba(0,0,0,.18);
+    }
+
+    .zap-badge-top{
+      position:absolute; top:14px; left:14px;
+    }
+
+    /* ===== Landing Page Produto ===== */
+    .lp{
+      margin-top: 16px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .lp-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+    }
+    @media(max-width: 900px){ .lp-grid{ grid-template-columns: 1fr; } }
+
+    .lp-card{
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(10,12,18,.45);
+      border-radius: var(--radius2);
+      padding: 16px;
+      box-shadow: 0 22px 70px rgba(0,0,0,.35);
+      position:relative;
+      overflow:hidden;
+    }
+    .lp-card:before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(600px 260px at 10% 0%, rgba(0,210,255,.10), transparent 60%),
+        radial-gradient(600px 260px at 90% 15%, rgba(124,58,237,.08), transparent 60%);
+      pointer-events:none;
+      opacity:.9;
+    }
+    .lp-card > *{ position:relative; }
+
+    .lp-title{
+      margin:0 0 10px;
+      font-size: 1.05rem;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      font-weight: 950;
+    }
+
+    .lp-bullets{
+      margin:0; padding-left: 18px;
+      display:grid; gap:8px;
+      color: rgba(233,238,252,.9);
+      font-weight: 650;
+    }
+    .lp-bullets li{ line-height: 1.35rem; color: rgba(233,238,252,.88); }
+
+    .lp-badges{
+      margin-top: 12px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    .lp-badge{
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      font-weight: 900;
+      font-size: .82rem;
+    }
+
+    .lp-box{
+      display:grid;
+      gap:10px;
+      color: rgba(233,238,252,.88);
+      font-weight: 650;
+    }
+    .lp-box .lp-item{
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.22);
+    }
+
+    .lp-split{
+      margin-top: 12px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media(max-width: 700px){ .lp-split{ grid-template-columns: 1fr; } }
+
+    .lp-mini{
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.22);
+    }
+    .lp-mini h3{
+      margin:0 0 6px;
+      font-size: .85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(0,210,255,.95);
+      font-weight: 950;
+    }
+    .lp-mini p{
+      margin:0;
+      color: var(--muted);
+      line-height: 1.35rem;
+      font-weight: 650;
+    }
+
+    .lp-faq{
+      display:grid;
+      gap:10px;
+    }
+    .lp-faq details{
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.22);
+      border-radius: 16px;
+      padding: 12px 12px;
+    }
+    .lp-faq summary{
+      cursor:pointer;
+      font-weight: 900;
+      letter-spacing: .2px;
+    }
+    .lp-faq p{
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.4rem;
+      font-weight: 650;
+    }
+
+    .lp-reviews{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+    .lp-review{
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.22);
+      border-radius: 16px;
+      padding: 12px;
+    }
+    .lp-review .name{ font-weight: 950; }
+    .lp-review .stars{ color: rgba(0,255,133,.95); font-weight: 950; letter-spacing: 2px; }
+    .lp-review .text{ margin-top: 6px; color: var(--muted); font-weight: 650; line-height: 1.35rem; }
+
+    .lp-cta{
+      border: 1px solid rgba(0,255,133,.28);
+      background: linear-gradient(180deg, rgba(0,255,133,.10), rgba(0,210,255,.08));
+      border-radius: var(--radius2);
+      padding: 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      box-shadow: 0 22px 70px rgba(0,0,0,.35);
+    }
+    .lp-cta-title{
+      font-weight: 950;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+    .lp-cta-sub{
+      margin-top: 4px;
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    /* ===== Comentários (NOVO) ===== */
+    .cm-form{ display:grid; gap:10px; }
+    .cm-row{
+      display:grid;
+      grid-template-columns: 1fr 190px;
+      gap:10px;
+    }
+    @media(max-width: 650px){ .cm-row{ grid-template-columns: 1fr; } }
+
+    .cm-input{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.22);
+      color: var(--text);
+      font-weight: 650;
+      outline:none;
+    }
+    .cm-input:focus{ border-color: rgba(0,210,255,.45); }
+
+    .cm-textarea{
+      min-height: 110px;
+      resize: vertical;
+      line-height: 1.35rem;
+    }
+
+    .cm-actions{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .cm-actions .btn{ border-radius: 999px; }
+
+    .cm-hint{
+      color: var(--muted);
+      font-size: .82rem;
+      font-weight: 650;
+    }
+
+    .cm-list{
+      margin-top: 12px;
+      display:grid;
+      gap: 10px;
+    }
+
+    .cm-item{
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.22);
+      border-radius: 16px;
+      padding: 12px;
+    }
+
+    .cm-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .cm-name{ font-weight: 950; }
+    .cm-stars{ color: rgba(0,255,133,.95); font-weight: 950; letter-spacing: 2px; }
+    .cm-date{ color: rgba(233,238,252,.55); font-size: .78rem; font-weight: 650; }
+
+    .cm-text{
+      margin-top: 8px;
+      color: var(--muted);
+      font-weight: 650;
+      line-height: 1.35rem;
+    }
+
+    .cm-del{
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 8px 10px;
+      font-weight: 900;
+      cursor:pointer;
+    }
+    .cm-del:hover{ border-color: rgba(255,43,214,.35); transform: translateY(-1px); }
+  </style>
+</head>
+
+<body>
+  <a href="https://wa.me/5519997138670" class="float-zap" target="_blank" aria-label="WhatsApp">
+    <svg fill="currentColor" viewBox="0 0 16 16">
+      <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+    </svg>
+  </a>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="logo">BRAVTEK</div>
+        <div class="sub" id="subTitle">Catálogo Tech</div>
+      </div>
+      <div class="top-actions">
+        <button class="btn" type="button" id="btnHome">Home</button>
+        <button class="btn" type="button" id="btnBack" style="display:none;">Voltar</button>
+        <a class="btn btn-primary" href="https://wa.me/5519997138670" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <!-- HOME -->
+    <section id="view-home" class="view active">
+      <div class="hero">
+        <div class="hero-inner">
+          <div>
+            <h1>Catálogo BRAVTEK</h1>
+            <p>Categorias separadas, produtos com ficha técnica e seleções (cor, memória e RAM no MacBook). Clique para entrar na categoria.</p>
+          </div>
+          <div class="nav-cats" id="homeCats"></div>
+        </div>
+      </div>
+
+      <div class="category">
+        <div class="cat-head">
+          <h2>Categorias</h2><span>Separadas</span>
+        </div>
+        <div class="grid" id="homeGrid"></div>
+      </div>
+    </section>
+
+    <!-- CATEGORY -->
+    <section id="view-category" class="view">
+      <div class="hero">
+        <div class="hero-inner">
+          <div>
+            <h1 id="catTitle">Categoria</h1>
+            <p id="catDesc">Escolha um produto para ver os detalhes.</p>
+          </div>
+          <div class="nav-cats" id="catNav"></div>
+        </div>
+      </div>
+
+      <div class="category">
+        <div class="cat-head">
+          <h2 id="catHead">PRODUTOS</h2>
+          <span id="catCount">0 itens</span>
+        </div>
+        <div class="grid" id="catGrid"></div>
+      </div>
+    </section>
+
+    <!-- PRODUCT -->
+    <section id="view-product" class="view">
+      <div class="detail">
+        <div class="detail-inner">
+          <div class="detail-media">
+            <a class="zap-badge zap-badge-top" id="detailZapTop" href="#" target="_blank" rel="noopener">
+              <span class="zap-dot"></span> WhatsApp
+            </a>
+            <img id="detailImg" src="" alt="Produto" />
+          </div>
+
+          <div>
+            <h1 class="detail-title" id="detailTitle">Produto</h1>
+            <div class="detail-tag" id="detailTag">TAG</div>
+
+            <div class="tech" id="detailTech"></div>
+
+            <div id="optionsArea"></div>
+
+            <div class="price" id="detailPrice">R$ 0</div>
+
+            <div class="buy">
+              <a class="primary" id="detailZap" href="#" target="_blank" rel="noopener">Comprar no Whats</a>
+              <a id="detailBack" href="#">Voltar para categoria</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LANDING PAGE DO PRODUTO -->
+      <section class="lp" id="lp">
+        <div class="lp-grid">
+          <div class="lp-card">
+            <h2 class="lp-title">Por que esse produto vale a pena</h2>
+            <ul class="lp-bullets" id="lpBullets"></ul>
+            <div class="lp-badges" id="lpBadges"></div>
+          </div>
+
+          <div class="lp-card">
+            <h2 class="lp-title">O que vem na caixa</h2>
+            <div class="lp-box" id="lpInBox"></div>
+
+            <div class="lp-split">
+              <div class="lp-mini">
+                <h3>Garantia</h3>
+                <p id="lpWarranty"></p>
+              </div>
+              <div class="lp-mini">
+                <h3>Entrega</h3>
+                <p id="lpShipping"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lp-card">
+          <h2 class="lp-title">Perguntas frequentes</h2>
+          <div class="lp-faq" id="lpFaq"></div>
+        </div>
+
+        <div class="lp-card">
+          <h2 class="lp-title">Avaliações</h2>
+          <div class="lp-reviews" id="lpReviews"></div>
+        </div>
+
+        <!-- COMENTÁRIOS (NOVO) -->
+        <div class="lp-card">
+          <h2 class="lp-title">Comentários</h2>
+
+          <form class="cm-form" id="cmForm">
+            <div class="cm-row">
+              <input class="cm-input" id="cmName" type="text" placeholder="Seu nome" maxlength="30" required />
+              <select class="cm-input" id="cmStars" required>
+                <option value="5">★★★★★ (5)</option>
+                <option value="4">★★★★☆ (4)</option>
+                <option value="3">★★★☆☆ (3)</option>
+                <option value="2">★★☆☆☆ (2)</option>
+                <option value="1">★☆☆☆☆ (1)</option>
+              </select>
+            </div>
+
+            <textarea class="cm-input cm-textarea" id="cmText" placeholder="Escreva seu comentário sobre o produto..." maxlength="300" required></textarea>
+
+            <div class="cm-actions">
+              <button class="btn btn-primary" type="submit">Publicar comentário</button>
+              <button class="btn" type="button" id="cmClear">Limpar</button>
+            </div>
+
+            <div class="cm-hint" id="cmHint">Os comentários ficam salvos no seu navegador (sem servidor).</div>
+          </form>
+
+          <div class="cm-list" id="cmList"></div>
+        </div>
+
+        <div class="lp-cta">
+          <div>
+            <div class="lp-cta-title" id="lpCtaTitle">Pronto pra garantir o seu?</div>
+            <div class="lp-cta-sub" id="lpCtaSub">Chama no WhatsApp e fechamos rapidinho.</div>
+          </div>
+          <a class="btn btn-primary" id="lpCtaBtn" href="#" target="_blank" rel="noopener">Comprar no Whats</a>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer>BRAVTEK TECNOLOGIA - CNPJ: 64.206.671/0001-96 <a href="https://www.bravtek.com.br">Clique aqui para visitar nosso site</a> </footer>
+
+  <script>
+    "use strict";
+
+    // ========= CONFIG =========
+    const WHATS = "5519997138670";
+
+    const categories = [
+      { id: "iphone",    name: "iPhones",     desc: "Modelos 13 → 17, com seleção de cor e memória.", cover: "https://i.pinimg.com/1200x/a7/8c/40/a78c406e4ad95f68bd8b014582ef3ece.jpg" },
+      { id: "motorola",  name: "Motorola",    desc: "Modelos selecionados, com seleção de cor e memória.", cover: "https://i.pinimg.com/736x/0b/e9/57/0be957ac62cc0299ccf5f3eb504f6025.jpg" },
+      { id: "samsung",  name: "Samsung",    desc: "Modelos selecionados, com seleção de cor e memória.", cover: "https://i.pinimg.com/736x/86/f3/27/86f327f40c66822b5b4d367637a1feb3.jpg" },
+      { id: "xiaomi",  name: "Xiaomi",    desc: "Modelos selecionados, com seleção de cor e memória.", cover: "https://i.pinimg.com/1200x/d8/bd/94/d8bd940f28deb51d977cf290a0532445.jpg" },
+      { id: "macbook",   name: "MacBooks",    desc: "Air / Pro, com seleção de SSD e RAM.", cover: "https://i.pinimg.com/1200x/a7/8c/40/a78c406e4ad95f68bd8b014582ef3ece.jpg" },
+      { id: "watch",     name: "Apple Watch", desc: "Ultra / Series.", cover: "https://i.pinimg.com/1200x/a7/8c/40/a78c406e4ad95f68bd8b014582ef3ece.jpg" },
+      { id: "audio",     name: "AirPods",     desc: "Pro / Max.", cover: "https://i.pinimg.com/1200x/a7/8c/40/a78c406e4ad95f68bd8b014582ef3ece.jpg" },
+      { id: "power",     name: "Energia",     desc: "MagSafe / Fonte USB-C.", cover: "https://i.pinimg.com/1200x/a7/8c/40/a78c406e4ad95f68bd8b014582ef3ece.jpg" }
+    ];
+
+    // ========= PRODUCTS =========
+    const products = [
+      // iPhones 13-17
+      {
+        id:"iphone17", cat:"iphone",
+        name:"iPhone 17", tagline:"O Futuro Chegou", basePrice: 7500,
+        specs:[ ["Chip","A19"], ["Câmera","48MP Pro (Dupla) Frontal 18MP"], ["Tela","6,3 Polegadas OLED 120Hz"], ["Bateria","Até 30h vídeo"] ],
+        models:["256GB"], modelAdd:[0],
+        colors:[
+          { name:"Preto", hex:"#000000", img:"https://i.pinimg.com/736x/9c/dd/4d/9cdd4ddd0caa29ec60854a89f98849ed.jpg" },
+          { name:"Azul", hex:"#6495ED", img:"https://i.pinimg.com/736x/f4/c6/96/f4c6963147ba4db477f9fe323ec2c777.jpg" },
+          { name:"Verde", hex:"#3CB371", img:"https://i.pinimg.com/736x/f6/d5/ef/f6d5ef522eb4c765459dcdad84b383cd.jpg" },
+          { name:"Lilas", hex:"#C8A2C8", img:"https://i.pinimg.com/736x/92/e7/8f/92e78f9a75b4078f523f61948c281f78.jpg" }
+        ],
+        lp:{
+          bullets:[
+            "Escolha rápida por cor e versão diretamente no catálogo.",
+            "Atendimento direto no WhatsApp, sem enrolação.",
+            "Conferência antes do envio (fotos e detalhes no Whats).",
+            "Ótimo equilíbrio entre performance, câmera e bateria."
+          ],
+          badges:["Compra segura","Suporte no WhatsApp","Conferência antes do envio","Garantia"],
+          inBox:["iPhone","Cabo","Guia rápido","Comprovante/Nota (conforme disponibilidade)"],
+          warranty:"Garantia de 1 Ano Apple + suporte Bravtek no WhatsApp.",
+          shipping:"Envio rápido. Prazo varia por cidade/transportadora. Você confirma tudo no Whats.",
+          faq:[
+            ["Tem pronta entrega?","Depende de cor/versão. Chama no Whats e eu confirmo na hora."],
+            ["Como comprar?","Selecione as opções e clique em Comprar no Whats."],
+            ["O valor muda?","O valor acompanha a seleção de versão/cor exibida na tela."]
+          ],
+          reviews:[
+            { name:"Rafael", stars:5, text:"Atendimento rápido e produto impecável. Recomendo!" },
+            { name:"Mariana", stars:5, text:"Tirou minhas dúvidas e fechou tudo certinho no Whats." }
+          ],
+          ctaTitle:"Quer garantir o seu agora?",
+          ctaSub:"Clique no botão e finalize pelo WhatsApp."
+        }
+      },
+      {
+        id:"iphone17pro", cat:"iphone",
+        name:"iPhone 17 Pro e Pro Max", tagline:"O Futuro Chegou", basePrice: 9500,
+        specs:[ ["Chip","A19 Pro"], ["Câmera","48MP Pro (Triple)"], ["Tela","OLED 120Hz"], ["Bateria","Até 30h vídeo"] ],
+        models:["Pro-256GB","Pro-Max-256GB","Pro-Max-512GB"], modelAdd:[0,700,1490],
+        colors:[
+          { name:"Azul", hex:"#191970", img:"https://i.pinimg.com/1200x/06/aa/f1/06aaf13a1114dd1c19a14074f29f9b22.jpg" },
+          { name:"Laranja", hex:"#FF8C00", img:"https://cdn.movertix.com/media/catalog/product/cache/image/i/p/iphone-17-pro-cosmic-orange-512gb.jpg" },
+          { name:"Branco", hex:"#FFFFFF", img:"https://gulfstore.com/cdn/shop/files/iphone_17_pro_max_white-2_4.webp?v=1758802070&width=1500"}
+        ],
+        lp:{
+          bullets:[
+            "Linha Pro com foco em câmera e desempenho premium.",
+            "Você escolhe versão e cor, e fecha tudo no WhatsApp.",
+            "Atendimento direto e confirmação completa antes do envio.",
+            "Ideal pra quem quer o máximo (foto/vídeo e performance)."
+          ],
+          badges:["Premium","Câmera Pro","Suporte no WhatsApp","Garantia"],
+          inBox:["iPhone","Cabo","Guia rápido","Comprovante/Nota (conforme disponibilidade)"],
+          warranty:"Garantia de 1 Ano Apple + suporte Bravtek no WhatsApp.",
+          shipping:"Envio rápido. Confirme prazo e disponibilidade no Whats.",
+          faq:[
+            ["Qual a diferença Pro x Pro Max?","O Pro Max costuma ter tela maior e, em alguns casos, bateria maior. Confirmamos na hora no Whats."],
+            ["Posso escolher memória?","Sim, use o seletor de versão e finalize no Whats."],
+            ["Tem fotos reais?","Sim. Enviamos fotos e detalhes do lote no Whats antes de fechar."]
+          ],
+          reviews:[
+            { name:"Carlos", stars:5, text:"Fechei rápido, atendimento top. Produto chegou bem embalado." }
+          ],
+          ctaTitle:"Bora fechar no Whats?",
+          ctaSub:"Clique e me diga a cor e a versão que você quer."
+        }
+      },
+      {
+        id:"iphone16", cat:"iphone",
+        name:"iPhone 16", tagline:"Equilíbrio e Poder", basePrice: 6200,
+        specs:[ ["Chip","A18"], ["Câmera","48MP Fusion"], ["Tela","Super Retina XDR"], ["Bateria","Até 25h vídeo"] ],
+        models:["Tradicional","Plus"], modelAdd:[0,500],
+        storage:["128GB","256GB","512GB"], storageAdd:[0,450,950],
+        colors:[
+          { name:"Ultramarine", hex:"#4b628b", img:"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-finish-select-202309-6-1inch-blue?wid=1000" },
+          { name:"Preto",       hex:"#111217", img:"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-finish-select-202309-6-1inch-black?wid=1000" }
+        ]
+      },
+      {
+        id:"iphone15", cat:"iphone",
+        name:"iPhone 15", tagline:"Essencial, mas brutal", basePrice: 4900,
+        specs:[ ["Chip","A16 Bionic"], ["Câmera","48MP + Ultra Wide"], ["Tela","Super Retina XDR"], ["Bateria","Até 20h vídeo"] ],
+        models:["Tradicional","Plus"], modelAdd:[0,450],
+        storage:["128GB","256GB","512GB"], storageAdd:[0,350,800],
+        colors:[
+          { name:"Azul",  hex:"#3b5b7a", img:"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-finish-select-202309-6-1inch-blue?wid=1000" },
+          { name:"Preto", hex:"#161616", img:"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-finish-select-202309-6-1inch-black?wid=1000" }
+        ]
+      },
+      {
+        id:"iphone14", cat:"iphone",
+        name:"iPhone 14", tagline:"Potência e confiança", basePrice: 3900,
+        specs:[ ["Chip","A15 Bionic"], ["Câmera","12MP Dupla"], ["Tela","Super Retina XDR"], ["Bateria","Até 20h vídeo"] ],
+        models:["Tradicional","Plus"], modelAdd:[0,400],
+        storage:["128GB","256GB","512GB"], storageAdd:[0,300,700],
+        colors:[
+          { name:"Midnight",  hex:"#111217", img:"https://via.placeholder.com/1000x1000.png?text=iPhone+14+Midnight" },
+          { name:"Starlight", hex:"#d9d6cf", img:"https://via.placeholder.com/1000x1000.png?text=iPhone+14+Starlight" }
+        ]
+      },
+      {
+        id:"iphone13", cat:"iphone",
+        name:"iPhone 13", tagline:"Clássico que entrega", basePrice: 3400,
+        specs:[ ["Chip","A15 Bionic"], ["Câmera","12MP Dupla"], ["Tela","Super Retina XDR"], ["Bateria","Até 19h vídeo"] ],
+        models:["Tradicional","Mini"], modelAdd:[0,250],
+        storage:["128GB","256GB","512GB"], storageAdd:[0,250,600],
+        colors:[
+          { name:"Starlight", hex:"#d9d6cf", img:"https://via.placeholder.com/1000x1000.png?text=iPhone+13+Starlight" },
+          { name:"Midnight",  hex:"#111217", img:"https://via.placeholder.com/1000x1000.png?text=iPhone+13+Midnight" }
+        ]
+      },
+
+      // Motorola
+      {
+        id:"MotorolaG3", cat:"motorola",
+        name:"Motorola G3 50", tagline:"Linha Motorola", basePrice: 3400,
+        specs:[ ["Chip","—"], ["Câmera","—"], ["Tela","—"], ["Bateria","—"] ],
+        models:["Tradicional"], modelAdd:[0],
+        storage:["128GB","256GB"], storageAdd:[0,250],
+        colors:[
+          { name:"Preto",  hex:"#111217", img:"https://via.placeholder.com/1000x1000.png?text=Motorola+Preto" },
+          { name:"Prata",  hex:"#e5e7eb", img:"https://via.placeholder.com/1000x1000.png?text=Motorola+Prata" }
+        ]
+      },
+
+      // MacBooks (SSD + RAM)
+      {
+        id:"macairm3", cat:"macbook",
+        name:"MacBook Air M3", tagline:"Fino. Leve. Letal.", basePrice: 10500,
+        specs:[ ["Chip","M3"], ["Câmera","1080p HD"], ["Tela","Liquid Retina"], ["Bateria","Até 18h"] ],
+        models:["13-inch","15-inch"], modelAdd:[0,900],
+        storage:["256GB","512GB","1TB"], storageAdd:[0,650,1500],
+        ram:["8GB","16GB","24GB"], ramAdd:[0,800,1600],
+        colors:[
+          { name:"Midnight",  hex:"#2e3641", img:"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mba13-m3-midnight-select-202402?wid=1000" },
+          { name:"Starlight", hex:"#d9d6cf", img:"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mba13-m3-starlight-select-202402?wid=1000" }
+        ]
+      },
+      {
+        id:"macprom3", cat:"macbook",
+        name:"MacBook Pro", tagline:"Performance sem desculpas", basePrice: 14900,
+        specs:[ ["Chip","M3 / M3 Pro"], ["Tela","Liquid Retina XDR"], ["Portas","HDMI / SD / USB-C"], ["Bateria","Até 22h"] ],
+        models:["14-inch","16-inch"], modelAdd:[0,2200],
+        storage:["512GB","1TB","2TB"], storageAdd:[0,1200,2600],
+        ram:["16GB","32GB","36GB"], ramAdd:[0,1800,2600],
+        colors:[
+          { name:"Space Black", hex:"#111217", img:"https://via.placeholder.com/1000x1000.png?text=MacBook+Pro+Space+Black" },
+          { name:"Silver",      hex:"#e5e7eb", img:"https://via.placeholder.com/1000x1000.png?text=MacBook+Pro+Silver" }
+        ]
+      },
+
+      // Outros
+      {
+        id:"watchultra2", cat:"watch",
+        name:"Apple Watch Ultra 2", tagline:"Aventuras sem limites", basePrice: 8200,
+        specs:[ ["Chip","S9 SiP"], ["Conect.","GPS + Celular"], ["Brilho","Até 3000 nits"], ["Bateria","36h a 72h"] ],
+        models:["49mm"], modelAdd:[0],
+        storage:["Padrão"], storageAdd:[0],
+        colors:[ { name:"Titânio", hex:"#bebebe", img:"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MT4M3?wid=1000" } ]
+      },
+      {
+        id:"watchs10", cat:"watch",
+        name:"Apple Watch Series 10", tagline:"Mais fino. Mais tela.", basePrice: 4100,
+        specs:[ ["Chip","S10 SiP"], ["Recursos","Saúde Cardíaca"], ["Tela","OLED Wide"], ["Bateria","Até 18h"] ],
+        models:["42mm","46mm"], modelAdd:[0,350],
+        storage:["GPS","GPS + Cellular"], storageAdd:[0,600],
+        colors:[ { name:"Jet Black", hex:"#000000", img:"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MWW33?wid=1000" } ]
+      },
+      {
+        id:"airpodspro2", cat:"audio",
+        name:"AirPods Pro 2", tagline:"Cancelamento ativo 2x", basePrice: 2200,
+        specs:[ ["Chip","H2"], ["Case","USB-C"], ["Áudio","Espacial"], ["Bateria","Até 6h c/ ANC"] ],
+        models:["MagSafe USB-C"], modelAdd:[0],
+        storage:["Padrão"], storageAdd:[0],
+        colors:[ { name:"Branco", hex:"#ffffff", img:"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MTJV3?wid=1000" } ]
+      },
+      {
+        id:"airpodsmax", cat:"audio",
+        name:"AirPods Max", tagline:"Alta fidelidade", basePrice: 5400,
+        specs:[ ["Chip","H1 em cada fone"], ["Controle","Digital Crown"], ["Design","Knit"], ["Bateria","Até 20h"] ],
+        models:["Original"], modelAdd:[0],
+        storage:["Padrão"], storageAdd:[0],
+        colors:[ { name:"Space Gray", hex:"#333333", img:"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/airpods-max-select-silver-202011?wid=1000" } ]
+      },
+      {
+        id:"magsafe", cat:"power",
+        name:"Carregador MagSafe", tagline:"Encaixe num click", basePrice: 450,
+        specs:[ ["Padrão","Qi Wireless"], ["Alinhamento","Imã"], ["Potência","Até 15W"], ["Conector","USB-C"] ],
+        models:["1 Metro","2 Metros"], modelAdd:[0,70],
+        storage:["Padrão"], storageAdd:[0],
+        colors:[ { name:"Original", hex:"#dddddd", img:"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MHXH3?wid=1000" } ]
+      },
+      {
+        id:"fonte20w", cat:"power",
+        name:"Fonte 20W USB-C", tagline:"Carregamento rápido", basePrice: 199,
+        specs:[ ["Marca","Apple"], ["Segurança","Safe Charge"], ["Padrão","PD Support"], ["Formato","Compacto"] ],
+        models:["Padrão"], modelAdd:[0],
+        storage:["Original"], storageAdd:[0],
+        colors:[ { name:"Branco", hex:"#ffffff", img:"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MU7V2?wid=1000" } ]
+      }
+    ];
+    
+
+    // ========= STATE =========
+    const state = {
+      lastCat: null,
+      cat: null,
+      productId: null,
+      sel: { model: null, storage: null, ram: null, color: null }
+    };
+
+    // ========= DOM =========
+    const elSubTitle  = document.getElementById("subTitle");
+    const viewHome    = document.getElementById("view-home");
+    const viewCat     = document.getElementById("view-category");
+    const viewProd    = document.getElementById("view-product");
+
+    const btnHome = document.getElementById("btnHome");
+    const btnBack = document.getElementById("btnBack");
+
+    const homeCats = document.getElementById("homeCats");
+    const homeGrid = document.getElementById("homeGrid");
+
+    const catTitle = document.getElementById("catTitle");
+    const catDesc  = document.getElementById("catDesc");
+    const catNav   = document.getElementById("catNav");
+    const catHead  = document.getElementById("catHead");
+    const catCount = document.getElementById("catCount");
+    const catGrid  = document.getElementById("catGrid");
+
+    const detailImg   = document.getElementById("detailImg");
+    const detailTitle = document.getElementById("detailTitle");
+    const detailTag   = document.getElementById("detailTag");
+    const detailTech  = document.getElementById("detailTech");
+    const optionsArea = document.getElementById("optionsArea");
+    const detailPrice = document.getElementById("detailPrice");
+    const detailZap   = document.getElementById("detailZap");
+    const detailZapTop= document.getElementById("detailZapTop");
+    const detailBack  = document.getElementById("detailBack");
+
+    // Landing DOM
+    const lpBullets   = document.getElementById("lpBullets");
+    const lpBadges    = document.getElementById("lpBadges");
+    const lpInBox     = document.getElementById("lpInBox");
+    const lpWarranty  = document.getElementById("lpWarranty");
+    const lpShipping  = document.getElementById("lpShipping");
+    const lpFaq       = document.getElementById("lpFaq");
+    const lpReviews   = document.getElementById("lpReviews");
+    const lpCtaBtn    = document.getElementById("lpCtaBtn");
+    const lpCtaTitle  = document.getElementById("lpCtaTitle");
+    const lpCtaSub    = document.getElementById("lpCtaSub");
+
+    // Comentários DOM (NOVO)
+    const cmForm  = document.getElementById("cmForm");
+    const cmName  = document.getElementById("cmName");
+    const cmStars = document.getElementById("cmStars");
+    const cmText  = document.getElementById("cmText");
+    const cmList  = document.getElementById("cmList");
+    const cmClear = document.getElementById("cmClear");
+    const cmHint  = document.getElementById("cmHint");
+
+    // ========= Helpers =========
+    function money(n){
+      return "R$ " + (n || 0).toLocaleString("pt-BR");
+    }
+    function waLink(text){
+      return "https://wa.me/" + WHATS + "?text=" + encodeURIComponent(text);
+    }
+    function getCatById(id){
+      return categories.find(c => c.id === id) || null;
+    }
+    function getProductsByCat(catId){
+      return products.filter(p => p.cat === catId);
+    }
+    function getProductById(id){
+      return products.find(p => p.id === id) || null;
+    }
+    function showOnly(viewName){
+      viewHome.classList.remove("active");
+      viewCat.classList.remove("active");
+      viewProd.classList.remove("active");
+
+      if(viewName === "home") viewHome.classList.add("active");
+      if(viewName === "category") viewCat.classList.add("active");
+      if(viewName === "product") viewProd.classList.add("active");
+
+      btnBack.style.display = (viewName === "home") ? "none" : "inline-flex";
+    }
+    function setSubtitle(txt){
+      elSubTitle.textContent = txt;
+    }
+
+    function escapeHtml(str){
+      return String(str || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    // ========= Comentários (NOVO) =========
+    function cmKey(productId){
+      return "bravtek_comments_" + productId;
+    }
+
+    function loadComments(productId){
+      try{
+        return JSON.parse(localStorage.getItem(cmKey(productId)) || "[]");
+      }catch(e){
+        return [];
+      }
+    }
+
+    function saveComments(productId, arr){
+      localStorage.setItem(cmKey(productId), JSON.stringify(arr));
+    }
+
+    function starsText(n){
+      const x = Math.max(1, Math.min(5, Number(n) || 5));
+      return "★".repeat(x) + "☆".repeat(5 - x);
+    }
+
+    function formatDate(ts){
+      const d = new Date(ts);
+      return d.toLocaleDateString("pt-BR") + " " + d.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+    }
+
+    function renderComments(productId){
+      const list = loadComments(productId);
+
+      if(!list.length){
+        cmList.innerHTML = `<div class="cm-item"><div class="cm-text">Ainda não tem comentários. Seja o primeiro.</div></div>`;
+        return;
+      }
+
+      cmList.innerHTML = list
+        .sort((a,b) => b.ts - a.ts)
+        .map(c => {
+          return `
+            <div class="cm-item">
+              <div class="cm-head">
+                <div>
+                  <div class="cm-name">${escapeHtml(c.name || "Cliente")}</div>
+                  <div class="cm-stars">${starsText(c.stars)}</div>
+                </div>
+
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <div class="cm-date">${formatDate(c.ts)}</div>
+                  <button class="cm-del" type="button" data-action="cmDel" data-cid="${c.id}">Excluir</button>
+                </div>
+              </div>
+
+              <div class="cm-text">${escapeHtml(c.text || "")}</div>
+            </div>
+          `;
+        }).join("");
+    }
+
+    // ========= Routing via hash =========
+    function goHome(){ location.hash = "#home"; }
+    function goCat(catId){ location.hash = "#cat=" + catId; }
+    function goProduct(productId){ location.hash = "#p=" + productId; }
+
+    function parseHash(){
+      const h = (location.hash || "#home").replace("#", "");
+      if(h === "home" || h === "") return { type: "home" };
+      if(h.startsWith("cat=")) return { type: "cat", id: h.slice(4) };
+      if(h.startsWith("p=")) return { type: "p", id: h.slice(2) };
+      return { type: "home" };
+    }
+
+    // ========= Render Home =========
+    function renderHome(){
+      setSubtitle("Catálogo Tech");
+      showOnly("home");
+
+      homeCats.innerHTML = categories.map(c => {
+        return `<button class="btn" type="button" data-action="goCat" data-cat="${c.id}">${c.name}</button>`;
+      }).join("");
+
+      homeGrid.innerHTML = categories.map(c => {
+        return `
+          <div class="card" data-action="goCat" data-cat="${c.id}">
+            <div class="media">
+              <img src="${c.cover}" alt="${c.name}">
+            </div>
+            <h3>${c.name}</h3>
+            <p>${c.desc}</p>
+          </div>
+        `;
+      }).join("");
+    }
+
+    // ========= Render Category =========
+    function renderCategory(catId){
+      const cat = getCatById(catId);
+      if(!cat){ goHome(); return; }
+
+      state.cat = catId;
+      state.lastCat = catId;
+      state.productId = null;
+      state.sel = { model: null, storage: null, ram: null, color: null };
+
+      setSubtitle(cat.name);
+      showOnly("category");
+
+      catTitle.textContent = cat.name;
+      catDesc.textContent = cat.desc;
+      catHead.textContent = cat.name.toUpperCase();
+
+      catNav.innerHTML = categories.map(c => {
+        const cls = (c.id === catId) ? "btn btn-primary" : "btn";
+        return `<button class="${cls}" type="button" data-action="goCat" data-cat="${c.id}">${c.name}</button>`;
+      }).join("");
+
+      const list = getProductsByCat(catId);
+      catCount.textContent = list.length + " itens";
+
+      catGrid.innerHTML = list.map(p => {
+        const img = (p.colors && p.colors[0] && p.colors[0].img) ? p.colors[0].img : "https://via.placeholder.com/1000x1000.png?text=Produto";
+        const zap = waLink("Olá Bravtek! Quero o " + p.name + ".");
+        return `
+          <div class="card" data-action="goProduct" data-product="${p.id}">
+            <div class="media">
+              <a class="zap-badge" href="${zap}" target="_blank" rel="noopener" data-action="stop">
+                <span class="zap-dot"></span> Whats
+              </a>
+              <img src="${img}" alt="${p.name}">
+            </div>
+            <h3>${p.name}</h3>
+            <p>${p.tagline || ""}</p>
+          </div>
+        `;
+      }).join("");
+    }
+
+    // ========= Options builders =========
+    function chipGroup(key, items, active){
+      return `
+        <div class="chips">
+          ${items.map(v => {
+            const isActive = v === active;
+            const cls = isActive ? "chip active" : "chip";
+            return `<div class="${cls}" data-action="setOpt" data-key="${key}" data-value="${v}">${v}</div>`;
+          }).join("")}
+        </div>
+      `;
+    }
+
+    function colorGroup(colors, activeName){
+      return `
+        <div class="colors">
+          ${colors.map(c => {
+            const isActive = c.name === activeName;
+            const cls = isActive ? "dot active" : "dot";
+            return `<span class="${cls}" title="${c.name}" style="background:${c.hex}" data-action="setOpt" data-key="color" data-value="${c.name}"></span>`;
+          }).join("")}
+        </div>
+        <div class="hint">${activeName || ""}</div>
+      `;
+    }
+
+    function optBlock(title, innerHtml){
+      return `
+        <div class="opt">
+          <h4>${title}</h4>
+          ${innerHtml}
+        </div>
+      `;
+    }
+
+    // ========= Price calc =========
+    function computePrice(p){
+      let price = p.basePrice || 0;
+
+      if(p.models && p.modelAdd && state.sel.model){
+        const idx = p.models.indexOf(state.sel.model);
+        if(idx >= 0) price += (p.modelAdd[idx] || 0);
+      }
+      if(p.storage && p.storageAdd && state.sel.storage){
+        const idx = p.storage.indexOf(state.sel.storage);
+        if(idx >= 0) price += (p.storageAdd[idx] || 0);
+      }
+      if(p.ram && p.ramAdd && state.sel.ram){
+        const idx = p.ram.indexOf(state.sel.ram);
+        if(idx >= 0) price += (p.ramAdd[idx] || 0);
+      }
+      return price;
+    }
+
+    function getSelectedColorObj(p){
+      if(!p.colors || p.colors.length === 0) return null;
+      if(state.sel.color){
+        const found = p.colors.find(c => c.name === state.sel.color);
+        return found || p.colors[0];
+      }
+      return p.colors[0];
+    }
+
+    function buildWhatsText(p){
+      const parts = [];
+      parts.push("Olá Bravtek! Quero o " + p.name);
+      if(state.sel.model) parts.push("Modelo: " + state.sel.model);
+      if(state.sel.storage) parts.push((p.cat === "macbook" ? "SSD: " : "Memória: ") + state.sel.storage);
+      if(state.sel.ram) parts.push("RAM: " + state.sel.ram);
+      if(state.sel.color) parts.push("Cor: " + state.sel.color);
+      parts.push("Valor exibido: " + money(computePrice(p)));
+      return parts.join(" | ");
+    }
+
+    // ========= Landing Renderer =========
+    function renderLanding(p, whatsLink){
+      const fallback = {
+        bullets: [
+          "Atendimento direto no WhatsApp.",
+          "Você escolhe as opções do produto na tela.",
+          "Conferência e suporte na compra."
+        ],
+        badges: ["Compra segura", "Suporte no WhatsApp", "Conferência", "Garantia"],
+        inBox: ["Produto", "Acessórios conforme disponibilidade", "Guia rápido"],
+        warranty: "Garantia conforme o produto + suporte Bravtek no WhatsApp.",
+        shipping: "Envio conforme região. Consulte prazo e disponibilidade no Whats.",
+        faq: [
+          ["Como comprar?", "Selecione as opções e clique em Comprar no Whats."],
+          ["Como confirmar disponibilidade?", "Chame no Whats e eu confirmo na hora."],
+          ["O valor pode mudar?", "Pode variar por modelo/armazenamento/cor. O valor exibido é o da seleção atual."]
+        ],
+        reviews: [
+          { name: "Cliente", stars: 5, text: "Atendimento rápido e compra tranquila." }
+        ],
+        ctaTitle: "Bora garantir o seu?",
+        ctaSub: "Clique no botão e finalize no WhatsApp."
+      };
+
+      const lp = p.lp ? { ...fallback, ...p.lp } : fallback;
+
+      lpBullets.innerHTML = (lp.bullets || []).map(t => `<li>${t}</li>`).join("");
+      lpBadges.innerHTML = (lp.badges || []).map(b => `<span class="lp-badge">${b}</span>`).join("");
+      lpInBox.innerHTML = (lp.inBox || []).map(i => `<div class="lp-item">${i}</div>`).join("");
+
+      lpWarranty.textContent = lp.warranty || fallback.warranty;
+      lpShipping.textContent = lp.shipping || fallback.shipping;
+
+      lpFaq.innerHTML = (lp.faq || []).map(([q,a]) => {
+        return `<details><summary>${q}</summary><p>${a}</p></details>`;
+      }).join("");
+
+      lpReviews.innerHTML = (lp.reviews || []).map(r => {
+        const stars = "★".repeat(Math.max(1, Math.min(5, r.stars || 5)));
+        return `
+          <div class="lp-review">
+            <div class="name">${escapeHtml(r.name || "Cliente")}</div>
+            <div class="stars">${stars}</div>
+            <div class="text">${escapeHtml(r.text || "")}</div>
+          </div>
+        `;
+      }).join("");
+
+      lpCtaTitle.textContent = lp.ctaTitle || fallback.ctaTitle;
+      lpCtaSub.textContent = lp.ctaSub || fallback.ctaSub;
+
+      lpCtaBtn.href = whatsLink;
+    }
+
+    // ========= Render Product =========
+    function renderProduct(productId){
+      const p = getProductById(productId);
+      if(!p){ goHome(); return; }
+
+      state.productId = productId;
+      state.lastCat = p.cat;
+
+      // defaults
+      if(!state.sel.model && p.models && p.models.length) state.sel.model = p.models[0];
+      if(!state.sel.storage && p.storage && p.storage.length) state.sel.storage = p.storage[0];
+      if(p.ram && p.ram.length && !state.sel.ram) state.sel.ram = p.ram[0];
+      if(p.colors && p.colors.length && !state.sel.color) state.sel.color = p.colors[0].name;
+
+      setSubtitle("Detalhes");
+      showOnly("product");
+
+      detailTitle.textContent = p.name;
+      detailTag.textContent = p.tagline || "";
+
+      // image
+      const colorObj = getSelectedColorObj(p);
+      detailImg.src = colorObj ? colorObj.img : "https://via.placeholder.com/1000x1000.png?text=Produto";
+
+      // tech
+      detailTech.innerHTML = (p.specs || []).map(s => {
+        return `<div class="item"><b>${s[0]}</b>${s[1]}</div>`;
+      }).join("");
+
+      // options
+      const blocks = [];
+      if(p.models && p.models.length){
+        blocks.push(optBlock("Modelo / Versão", chipGroup("model", p.models, state.sel.model)));
+      }
+      if(p.storage && p.storage.length){
+        const label = (p.cat === "macbook") ? "Armazenamento (SSD)" : "Memória (Storage)";
+        blocks.push(optBlock(label, chipGroup("storage", p.storage, state.sel.storage)));
+      }
+      if(p.ram && p.ram.length){
+        blocks.push(optBlock("Memória RAM", chipGroup("ram", p.ram, state.sel.ram)));
+      }
+      if(p.colors && p.colors.length){
+        blocks.push(optBlock("Cor", colorGroup(p.colors, state.sel.color)));
+      }
+      optionsArea.innerHTML = blocks.join("");
+
+      // price
+      const price = computePrice(p);
+      detailPrice.textContent = money(price);
+
+      // whatsapp
+      const msg = buildWhatsText(p);
+      const link = waLink(msg);
+      detailZap.href = link;
+      detailZapTop.href = link;
+
+      // landing CTA
+      renderLanding(p, link);
+
+      // comentários (NOVO)
+      cmHint.textContent = "Os comentários ficam salvos no seu navegador (sem servidor).";
+      renderComments(productId);
+
+      // back
+      detailBack.href = "#";
+    }
+
+    // ========= Event handling (sem onclick inline) =========
+    document.addEventListener("click", (e) => {
+      const target = e.target.closest("[data-action]");
+      if(!target) return;
+
+      const action = target.getAttribute("data-action");
+
+      if(action === "stop"){
+        e.stopPropagation();
+        return;
+      }
+
+      if(action === "goCat"){
+        const catId = target.getAttribute("data-cat");
+        if(catId) goCat(catId);
+        return;
+      }
+
+      if(action === "goProduct"){
+        const pid = target.getAttribute("data-product");
+        if(pid) goProduct(pid);
+        return;
+      }
+
+      if(action === "setOpt"){
+        const key = target.getAttribute("data-key");
+        const value = target.getAttribute("data-value");
+        if(!key || value == null) return;
+
+        state.sel[key] = value;
+
+        if(state.productId) renderProduct(state.productId);
+        return;
+      }
+
+      // Excluir comentário (NOVO)
+      if(action === "cmDel"){
+        if(!state.productId) return;
+        const cid = target.getAttribute("data-cid");
+        const arr = loadComments(state.productId).filter(x => x.id !== cid);
+        saveComments(state.productId, arr);
+        renderComments(state.productId);
+        return;
+      }
+    });
+
+    // Form Comentários (NOVO)
+    cmForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if(!state.productId) return;
+
+      const name = (cmName.value || "").trim();
+      const text = (cmText.value || "").trim();
+      const stars = Number(cmStars.value || 5);
+
+      if(name.length < 2 || text.length < 3) return;
+
+      const arr = loadComments(state.productId);
+      arr.push({
+        id: "c_" + Math.random().toString(16).slice(2) + "_" + Date.now(),
+        name,
+        text,
+        stars,
+        ts: Date.now()
+      });
+
+      saveComments(state.productId, arr);
+
+      cmText.value = "";
+      cmHint.textContent = "Comentário publicado no seu navegador.";
+      renderComments(state.productId);
+    });
+
+    cmClear.addEventListener("click", () => {
+      cmName.value = "";
+      cmStars.value = "5";
+      cmText.value = "";
+      cmHint.textContent = "Os comentários ficam salvos no seu navegador (sem servidor).";
+    });
+
+    // top buttons
+    btnHome.addEventListener("click", () => goHome());
+    btnBack.addEventListener("click", () => {
+      const r = parseHash();
+      if(r.type === "p"){
+        const p = getProductById(r.id);
+        goCat(p ? p.cat : (state.lastCat || "iphone"));
+        return;
+      }
+      if(r.type === "cat"){
+        goHome();
+        return;
+      }
+      goHome();
+    });
+
+    // detail back link
+    detailBack.addEventListener("click", (e) => {
+      e.preventDefault();
+      if(state.lastCat) goCat(state.lastCat);
+      else goHome();
+    });
+
+    // ========= Router =========
+    function route(){
+      const r = parseHash();
+
+      if(r.type === "home"){
+        state.cat = null;
+        state.productId = null;
+        state.sel = { model: null, storage: null, ram: null, color: null };
+        renderHome();
+        return;
+      }
+
+      if(r.type === "cat"){
+        renderCategory(r.id);
+        return;
+      }
+
+      if(r.type === "p"){
+        const p = getProductById(r.id);
+        if(!p){ goHome(); return; }
+        state.sel = { model: null, storage: null, ram: null, color: null };
+        renderProduct(r.id);
+        return;
+      }
+
+      renderHome();
+    }
+
+    window.addEventListener("hashchange", route);
+
+    // init
+    if(!location.hash) location.hash = "#home";
+    route();
+  </script>
+</body>
+</html>
